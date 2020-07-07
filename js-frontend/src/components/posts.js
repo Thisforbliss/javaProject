@@ -22,7 +22,6 @@ newPostForm.addEventListener("submit", function(e){
             title: inputTitleValue,
             content: inputConstValue
         } 
-       
 
     })  
    })
@@ -36,16 +35,6 @@ newPostForm.addEventListener("submit", function(e){
 
 })
  //console.log(newPostForm)
-
-
-
-
-
-
-
-
-
-
 postButton.addEventListener("click", function(e) {
     //console.log(e.target)
 
@@ -68,6 +57,13 @@ postButton.addEventListener("click", function(e) {
             const newPostContent = document.createElement('p')
             newPostContent.innerText = post.attributes.content
             postContainer.appendChild(newPostContent)
+            const button = document.createElement('button')
+            button.innerText = 'Individual Post'
+            button.id= `${post.id}`
+            button.addEventListener('click', function(e){
+                singlePost(button.id)
+            });
+            postContainer.appendChild(button)
 
         })
         
