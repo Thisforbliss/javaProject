@@ -1,0 +1,15 @@
+
+This is the structure youre aiming for
+
+
+<div class=“blog-post-card”>
+<p>Blog Title</p>
+<p>Blog Content</p>
+<button>Leave Comment</button>
+
+
+
+</div>
+in the comment form youll actually want the comment form to be rendred here
+<div id=“comment-form></div>
+renderComment form
