@@ -1,8 +1,9 @@
 
 
 const postButton = document.querySelector("#see-all-posts")
-
 const newPostForm = document.querySelector("#new-post-form")
+//This is for ADDING A COMMENT
+const newCommentForm = document.querySelector("#comment-form")
 
 newPostForm.addEventListener("submit", function(e){
      e.preventDefault()
@@ -66,33 +67,37 @@ postButton.addEventListener("click", function(e) {
 
             const blogPostCard = document.createElement('div') 
            
-            const newBlog = blogPostCard.appendChild(postTitle, postContent)
-            postContainer.appendChild(newBlog)
+            blogPostCard.appendChild(postTitle)
+            blogPostCard.appendChild(postContent)
+            postContainer.appendChild(blogPostCard)
    
             const commentForm = document.createElement('div')
             
-            commentForm.innerHTML +=    
+            commentForm.innerHTML +=   
             `<form id='comment-form' class=""> 
-            <input id='comment' type="text" name='comment' value='' placeholder= 'Comment Here'/>
+            <input id=1 type="text" name='comment' value="This" placeholder= 'Comment Here'/>
             <button id="create-comment-button" type="submit" name="submit"> Post Comment</button>
             </form><br>`
 
             postContainer.appendChild(commentForm)
 
-            const button = document.createElement('button')
-            button.id= `${post.id}`
-            button.innerHTML = 'Leave a Comment'
-            postContainer.appendChild(button)
+            // const button = document.createElement('button')
+            // button.id= `${post.id}`
+            // button.className += `submit-comment`
+            // button.innerHTML = 'Leave a Comment'
+            // postContainer.appendChild(button)
 
-            button.addEventListener('click', function(e){
-                renderCommentForm(button.id)
+            commentForm.addEventListener('click', function(e){
+                e.preventDefault()
+                
+                console.log(e)
             });
              
 
             //  function renderCommentForm(postId){
             //     console.log(postId)
             //     return (
-            //         `<form id='comment-form' class=""> 
+            //         `<form id='${postId}' class=""> 
             //         <input id='comment' type="text" name='comment' value='' placeholder= 'Comment Here'/>
             //         </form>`)
             //     }
