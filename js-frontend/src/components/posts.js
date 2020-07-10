@@ -3,7 +3,8 @@
 const postButton = document.querySelector("#see-all-posts")
 const newPostForm = document.querySelector("#new-post-form")
 //This is for ADDING A COMMENT
-const newCommentForm = document.querySelector("#comment-form")
+const newCommentForm = document.querySelector("#new-comment-form")
+
 
 newPostForm.addEventListener("submit", function(e){
      e.preventDefault()
@@ -35,6 +36,9 @@ newPostForm.addEventListener("submit", function(e){
 
 
 })
+
+
+
  //console.log(newPostForm)
 postButton.addEventListener("click", function(e) {
     //console.log(e.target)
@@ -60,26 +64,24 @@ postButton.addEventListener("click", function(e) {
             const newPostContent = document.createElement('p')
             newPostContent.innerText = post.attributes.content
             const postContent = postContainer.appendChild(newPostContent)
-            
-
-            
-
-
-            const blogPostCard = document.createElement('div') 
-           
+                
+            const blogPostCard = document.createElement('div')  
             blogPostCard.appendChild(postTitle)
             blogPostCard.appendChild(postContent)
             postContainer.appendChild(blogPostCard)
    
-            const commentForm = document.createElement('div')
-            
+            const commentForm = document.createElement('div')           
             commentForm.innerHTML +=   
-            `<form id='comment-form' class=""> 
+            `<form id='new-comment-form' class=""> 
             <input id=1 type="text" name='comment' value="This" placeholder= 'Comment Here'/>
             <button id="create-comment-button" type="submit" name="submit"> Post Comment</button>
             </form><br>`
 
             postContainer.appendChild(commentForm)
+
+            //Struggling to get Dynamic ID to match a post each comment
+            //Struggling with getting the input of the new comment form. Doesnt work with e.target.value
+
 
             // const button = document.createElement('button')
             // button.id= `${post.id}`
@@ -87,12 +89,7 @@ postButton.addEventListener("click", function(e) {
             // button.innerHTML = 'Leave a Comment'
             // postContainer.appendChild(button)
 
-            commentForm.addEventListener('click', function(e){
-                e.preventDefault()
-                
-                console.log(e)
-            });
-             
+            
 
             //  function renderCommentForm(postId){
             //     console.log(postId)
@@ -102,13 +99,22 @@ postButton.addEventListener("click", function(e) {
             //         </form>`)
             //     }
              
+            
+         
+            // newCommentForm.addEventListener('submit', function(e){
+            //     e.preventDefault()
+            //     console.log(e.target)
+            // });
 
-
+            //
         })
         
     })   
 })
 
+
+
+ 
    
 
     
