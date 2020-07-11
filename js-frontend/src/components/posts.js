@@ -3,7 +3,7 @@
 const postButton = document.querySelector("#see-all-posts")
 const newPostForm = document.querySelector("#new-post-form")
 //This is for ADDING A COMMENT
-const newCommentForm = document.querySelector("#new-comment-form")
+
 
 
 newPostForm.addEventListener("submit", function(e){
@@ -73,7 +73,7 @@ postButton.addEventListener("click", function(e) {
             const commentForm = document.createElement('div')           
             commentForm.innerHTML +=   
             `<form id='new-comment-form' class=""> 
-            <input id=1 type="text" name='comment' value="This" placeholder= 'Comment Here'/>
+            <input id=${post.id} type="text" name='comment' value="" placeholder= 'Comment Here'/>
             <button id="create-comment-button" type="submit" name="submit"> Post Comment</button>
             </form><br>`
 
@@ -98,16 +98,16 @@ postButton.addEventListener("click", function(e) {
             //         <input id='comment' type="text" name='comment' value='' placeholder= 'Comment Here'/>
             //         </form>`)
             //     }
-             
             
-         
-            // newCommentForm.addEventListener('submit', function(e){
-            //     e.preventDefault()
-            //     console.log(e.target)
-            // });
-
-            //
         })
+        const newCommentForm = document.querySelector("#new-comment-form")
+        
+        newCommentForm.addEventListener('submit', (e)=> {
+            
+                e.preventDefault()
+                console.log(e.target.elements[0].value)
+            });
+
         
     })   
 })
