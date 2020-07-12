@@ -100,12 +100,56 @@ postButton.addEventListener("click", function(e) {
             //     }
             
         })
-        const newCommentForm = document.querySelector("#new-comment-form")
-        
+
+
+        const newCommentForm = document.querySelector("#new-comment-form")  
         newCommentForm.addEventListener('submit', (e)=> {
             
                 e.preventDefault()
-                console.log(e.target.elements[0].value)
+                console.log(e.target.elements[0].id)
+                post_id= e.target.elements[0].id
+                commentInput = e.target.elements[0].value
+
+                fetch('http://localhost:3000/api/v1/comments', 
+                {
+                    method: "POST",
+
+                    headers:{ 'Content-Type': 'application/json',
+                               Accept: 'application/json' 
+                            },
+
+                    body: JSON.stringify({
+                       post:
+                       {    
+                        content: commentInput,
+                        post_id: post_id
+                       } 
+                    })  
+
+                }).then(function(res)
+                    {
+                      return res.json()
+                    }).then(function(comment)
+                    {
+                      console.log(comment)
+                    })
+
+
+//From Backend, its not adding a new comment also it could be conflicting id problems ahead since id:1 is taken
+
+// Started POST "/api/v1/comments" for ::1 at 2020-07-11 23:19:28 -0400
+// Processing by Api::V1::CommentsController#create as JSON
+//   Parameters: {"post"=>{"content"=>"Thanks", "post_id"=>"1"}, "comment"=>{}}
+// Completed 400 Bad Request in 0ms (ActiveRecord: 0.0ms | Allocations: 116)
+
+
+  
+// ActionController::ParameterMissing (param is missing or the value is empty: comments):
+  
+// app/controllers/api/v1/comments_controller.rb:34:in `comment_params'
+// app/controllers/api/v1/comments_controller.rb:5:in `create'
+
+
             });
 
         
