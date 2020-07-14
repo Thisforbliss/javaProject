@@ -110,7 +110,7 @@ postButton.addEventListener("click", function(e) {
                 post_id= e.target.elements[0].id
                 commentInput = e.target.elements[0].value
 
-                fetch('http://localhost:3000/api/v1/comments', 
+                fetch('http://localhost:3000/api/v1/comments/' + post_id, 
                 {
                     method: "POST",
 
