@@ -57,11 +57,12 @@ postButton.addEventListener("click", function(e) {
         posts.data.forEach(function(post){
             
             
-            const newPostTitle = document.createElement('h4')
+            const newPostTitle = document.createElement('h2')
             newPostTitle.innerText = post.attributes.title 
             const postTitle = postContainer.appendChild(newPostTitle)
 
             const newPostContent = document.createElement('p')
+            newPostContent.innerHTML += `class= "lead" `
             newPostContent.innerText = post.attributes.content
             const postContent = postContainer.appendChild(newPostContent)
                 
@@ -74,7 +75,7 @@ postButton.addEventListener("click", function(e) {
             commentForm.innerHTML +=   
             `<form id= "new-comment-form-${post.id}" class=""> 
             <input id= ${post.id} type="text" name='comment' value="" placeholder= 'Comment Here'/>
-            <button id="create-comment-button" type="submit" name="submit"> Post Comment</button>
+            <button id="create-comment-button" type="submit" name="submit" class="btn btn-info" > Post Comment</button>
             </form><br>`
             let post_id = post.id
             postContainer.appendChild(commentForm)
