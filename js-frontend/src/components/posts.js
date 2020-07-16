@@ -72,85 +72,62 @@ postButton.addEventListener("click", function(e) {
    
             const commentForm = document.createElement('div')           
             commentForm.innerHTML +=   
-            `<form id='new-comment-form' class=""> 
-            <input id=${post.id} type="text" name='comment' value="" placeholder= 'Comment Here'/>
+            `<form id= "new-comment-form-${post.id}" class=""> 
+            <input id= ${post.id} type="text" name='comment' value="" placeholder= 'Comment Here'/>
             <button id="create-comment-button" type="submit" name="submit"> Post Comment</button>
             </form><br>`
-
+            let post_id = post.id
             postContainer.appendChild(commentForm)
+           createComment(post_id = post.id)
 
-            //Struggling to get Dynamic ID to match a post each comment
-            //Struggling with getting the input of the new comment form. Doesnt work with e.target.value
-
-
-            // const button = document.createElement('button')
-            // button.id= `${post.id}`
-            // button.className += `submit-comment`
-            // button.innerHTML = 'Leave a Comment'
-            // postContainer.appendChild(button)
-
-            
-
-            //  function renderCommentForm(postId){
-            //     console.log(postId)
-            //     return (
-            //         `<form id='${postId}' class=""> 
-            //         <input id='comment' type="text" name='comment' value='' placeholder= 'Comment Here'/>
-            //         </form>`)
-            //     }
-            
+    
         })
 
-
-        const newCommentForm = document.querySelector("#new-comment-form")  
-        newCommentForm.addEventListener('submit', (e)=> {
-            
-                e.preventDefault()
-                console.log(e.target.elements[0].id)
-                post_id= e.target.elements[0].id
-                commentInput = e.target.elements[0].value
-
-                fetch('http://localhost:3000/api/v1/comments/' + post_id, 
-                {
-                    method: "POST",
-
-                    headers:{ 'Content-Type': 'application/json',
-                               Accept: 'application/json' 
-                            },
-
-                    body: JSON.stringify({
-                       post:
-                       {    
-                        content: commentInput,
-                        post_id: post_id
-                       } 
-                    })  
-
-                }).then(function(res)
+        function createComment(post_id){
+            console.log(post_id)
+            const newCommentForm = document.querySelector(`#new-comment-form-${post_id}`) 
+            console.log(newCommentForm) 
+            const postContainer = document.querySelector(`#new-comment-form-${post_id}`)
+            newCommentForm.addEventListener('submit', (e)=> {
+                
+                    e.preventDefault()
+                    console.log(e.target.elements[0].id)
+                    post_id= e.target.elements[0].id
+                    commentInput = e.target.elements[0].value
+                    console.log(post_id)
+                    fetch('http://localhost:3000/api/v1/comments', 
                     {
-                      return res.json()
-                    }).then(function(comment)
-                    {
-                      console.log(comment)
-                    })
+                        method: "POST",
+    
+                        headers:{ 'Content-Type': 'application/json',
+                                   Accept: 'application/json' 
+                                },
+    
+                        body: JSON.stringify({
+                           comment:
+                           {    
+                            content: commentInput,
+                            post_id: post_id
+                           } 
+                        })  
+    
+                    }).then(function(res)
+                        {
+                          return res.json()
+                        }).then(function(comment)
+                        {
+                          console.log(comment.data.attributes.content)
+                        
+                          const newCommentContent = document.createElement('p')
+                          newCommentContent.innerText = comment.data.attributes.content
+                          postContainer.appendChild(newCommentContent)
+                        })
+    
+                });
 
 
-//From Backend, its not adding a new comment also it could be conflicting id problems ahead since id:1 is taken
-
-// Started POST "/api/v1/comments" for ::1 at 2020-07-11 23:19:28 -0400
-// Processing by Api::V1::CommentsController#create as JSON
-//   Parameters: {"post"=>{"content"=>"Thanks", "post_id"=>"1"}, "comment"=>{}}
-// Completed 400 Bad Request in 0ms (ActiveRecord: 0.0ms | Allocations: 116)
-
-
-  
-// ActionController::ParameterMissing (param is missing or the value is empty: comments):
-  
-// app/controllers/api/v1/comments_controller.rb:34:in `comment_params'
-// app/controllers/api/v1/comments_controller.rb:5:in `create'
-
-
-            });
+        }
+        
 
         
     })   
